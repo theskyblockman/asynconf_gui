@@ -7,7 +7,7 @@ class Planet extends StatelessWidget {
   final void Function(Planet currentPlanet) onDelete;
 
   Planet({super.key, required this.onDelete}) {
-    currentField = TextField(controller: _controller, decoration: const InputDecoration(isDense: true),);
+    currentField = TextField(controller: _controller, decoration: const InputDecoration(isDense: true, border: InputBorder.none, contentPadding: EdgeInsets.all(15)));
   }
 
   String get text {
@@ -16,9 +16,9 @@ class Planet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(children: [Flexible(child: currentField), IconButton(onPressed: () {
+    return Container(decoration: BoxDecoration(border: Border.all(color: Colors.deepPurpleAccent), borderRadius: const BorderRadius.all(Radius.circular(10))), child: Row(children: [Flexible(child: currentField), IconButton(onPressed: () {
       onDelete(this);
-    }, icon: const Icon(Icons.remove))]) ;
+    }, icon: const Icon(Icons.remove))]));
   }
 
 }
