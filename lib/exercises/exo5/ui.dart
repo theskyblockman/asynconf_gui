@@ -75,8 +75,8 @@ class Board extends CustomPainter {
   final bool solved;
 
   Board(this.board, this.drawBrightness, this.solved) {
-    width = board.split("\n")[0].length + 2;
-    height = board.split("\n").length + 2;
+    width = board.split("\n")[0].length + 1;
+    height = board.split("\n").length + 1;
   }
 
   @override
@@ -135,11 +135,17 @@ class Board extends CustomPainter {
       currentX = 0;
     }
 
-    for (var i = 1; i < width; i++) {
+    for (var i = 0; i <= width; i++) {
       Offset p1 = Offset(size.width / width * i, 0);
-      Offset p2 = Offset(size.width / width * i, size.height);
+      Offset p2;
+      if(i < 2 || i == width) {
+        p2 = Offset(size.width / width * i, size.height);
+      } else {
+        p2 = Offset(size.width / width * i, size.height / height);
+      }
+
       canvas.drawLine(p1, p2, paint);
-      if(i + 1 < width) {
+      if(i + 1 <= width && i != 0) {
         ParagraphBuilder builder = ParagraphBuilder(ParagraphStyle(textAlign: TextAlign.center, fontSize: 50));
         builder.addText(Position.alphabet[i - 1]);
         final paragraph = builder.build()
@@ -148,12 +154,17 @@ class Board extends CustomPainter {
       }
     }
 
-    for (var i = 1; i < height; i++) {
+    for (var i = 0; i <= height; i++) {
       Offset p1 = Offset(0, size.height / height * i);
-      Offset p2 = Offset(size.width, size.height / height * i);
+      Offset p2;
+      if(i < 2 || i == height) {
+        p2 = Offset(size.width, size.height / height * i);
+      } else {
+        p2 = Offset(size.width / width, size.height / height * i);
+      }
       canvas.drawLine(p1, p2, paint);
 
-      if(i + 1 < height) {
+      if(i + 1 <= height && i != 0) {
         ParagraphBuilder builder = ParagraphBuilder(ParagraphStyle(textAlign: TextAlign.end, fontSize: 50));
         builder.addText(i.toString());
         final paragraph = builder.build()
