@@ -37,6 +37,6 @@ String run(String base64Input) {
 
     return finalString.trim();
   } on FormatException {
-    return "Les donnéx rentrés sont érronés";
+    return "Les donnés rentrés sont érronés";
   }
 }
