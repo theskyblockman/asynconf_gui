@@ -86,7 +86,7 @@ class Board extends CustomPainter {
 
     final pathPaint = Paint()
       ..color = Colors.blueAccent.shade100
-      ..strokeWidth = 8;
+      ..strokeWidth = 0;
 
     if(solved) {
 
@@ -96,8 +96,8 @@ class Board extends CustomPainter {
         for(String cell in result.showPath().split(";")) {
           int cellX = Position.alphabet.indexOf(cell[0]) + 1;
           int cellY = int.tryParse(cell[1])!;
-          Offset p1 = Offset(size.width / width * cellX, size.height / height * cellY);
-          Offset p2 = Offset(p1.dx + size.width / width, p1.dy + size.height / height);
+          Offset p1 = Offset(size.width / width * cellX, size.height / height * cellY- 1);
+          Offset p2 = Offset(p1.dx + size.width / width, size.height / height * cellY + size.height / height);
 
           canvas.drawRect(Rect.fromPoints(p1, p2), pathPaint);
         }
@@ -121,8 +121,8 @@ class Board extends CustomPainter {
       for (int rawCell in line.codeUnits) {
         currentX++;
         String cell = String.fromCharCode(rawCell);
-        Offset p1 = Offset(size.width / width * currentX, size.height / height * currentY);
-        Offset p2 = Offset(p1.dx + size.width / width, p1.dy + size.height / height);
+        Offset p1 = Offset(size.width / width * currentX, size.height / height * currentY - 1);
+        Offset p2 = Offset(p1.dx + size.width / width, size.height / height * currentY + size.height / height);
 
         if(cell == 'X') {
           canvas.drawRect(Rect.fromPoints(p1, p2), srcPaint);
@@ -139,7 +139,7 @@ class Board extends CustomPainter {
       Offset p1 = Offset(size.width / width * i, 0);
       Offset p2;
       if(i < 2 || i == width) {
-        p2 = Offset(size.width / width * i, size.height);
+        p2 = Offset(size.width / width * i, size.height - 1);
       } else {
         p2 = Offset(size.width / width * i, size.height / height);
       }
